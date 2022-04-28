@@ -1,0 +1,77 @@
+<section class="section-products pt-3">
+  <div class="container">
+      <div class="row justify-content-center text-center">
+              <div class="header">
+                  <h2>Nuestros platos</h2>
+              </div>
+      </div>
+      <div class="col mb-3 p-0">
+        <input placeholder="Buscar: Nombre del plato" type="text" class="form-control" (input)="movieFilter($event)">
+      </div>
+      <div class="row">
+          <!-- Single Product -->
+          <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let i of products | filter:search">
+              <div id="product-4" class="single-product">
+                  <div class="part-1" style="background: url({{i.foto}}) no-repeat center; background-size: cover;">
+                      <span class="new">{{i.categoria}}</span>
+                      <ul>
+                          <li><a data-toggle="modal" data-target="#exampleModal" (click)="pickData(i)"><i class="fas fa-shopping-cart"></i></a></li>
+                          <li><a><i class="fas fa-heart"></i></a></li>
+                          <li><a><i class="fas fa-expand"></i></a></li>
+                      </ul>
+                  </div>
+                  <div class="part-2">
+                      <h3 class="product-title">{{i.nombreProducto}}</h3>
+                      <h4 class="product-price">${{i.precio}}</h4>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles del plato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+              <img src="{{img}}" class="img-fluid" style="border-radius: 10px;" alt="">
+          </div>
+          <div class="col">
+            <h5>{{name}}</h5>
+            <p>{{resume}}</p>
+            <div class="row mb-2">
+              <div class="col">
+                <span class="badge badge-info" style="border-radius: 10px;">{{type}}</span>
+              </div>
+              <div class="col">
+                <span style="color: green;">$RD {{price}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for=""><b>Cantidad</b></label>
+              <input type="number" placeholder="Cantidad" class="form-control" [(ngModel)]="quantity">
+            </div>
+            <div class="form-group">
+              <textarea name="" id="" cols="10" rows="2" class="form-control" placeholder="Comentario" [(ngModel)]="comment"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="user != null && quantity != null && comment != null" class="btn btn-success" (click)="postOrder()">Confirmar pedido</button>
+        <button type="button" *ngIf="user == null"  class="btn btn-danger" disabled>Debe iniciar sesion</button>
+        <button type="button" *ngIf="quantity == null || comment == null" class="btn btn-warning" disabled>Rellene los campos faltantes</button>
+      </div>
+    </div>
+  </div>
+</div>

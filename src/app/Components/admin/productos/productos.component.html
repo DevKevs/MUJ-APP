@@ -1,0 +1,194 @@
+<div class="container pt-3">
+  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i>Agregar producto</button>
+
+  <div class="card mt-3">
+    <div class="card-header">
+      <h2>Mantenimiento de productos</h2>
+    </div>
+    <div class="card-body">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of products" style="text-transform: capitalize;">
+            <td>{{i.nombreProducto}}</td>
+            <td><p>{{i.descripcion}}</p></td>
+            <td style="color: green;">$RD {{i.precio}}</td>
+            <td>{{i.categoria}}</td>
+            <td><img style="width: 120px; height: 100px;" src="{{i.foto}}" alt=""></td>
+            <td>
+              <button class="btn btn-warning mr-2" data-toggle="modal" data-target="#ModalEdit" (click)="pickData(i)"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete" (click)="pickData(i)"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar plato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="product"><b>Nombre del producto</b></label>
+              <input type="text" class="form-control" placeholder="Nombre del plato" [(ngModel)]="name">
+            </div>
+            <div class="form-group">
+              <label for="product"><b>Descripcion del producto</b></label>
+              <textarea name="desc" id="" [(ngModel)]="resume" class="form-control" cols="10" rows="3" placeholder="Descripcion"></textarea>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="product"><b>precio del producto</b></label>
+                  <input type="number" [(ngModel)]="price" class="form-control" placeholder="precio del plato">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="product"><b>Categoria</b></label>
+                  <select class="form-control" [(ngModel)]="type">
+                    <option value="" selected disabled>Seleccione</option>
+                    <option value="Frituras">Frituras</option>
+                    <option value="Pastas">Pastas</option>
+                    <option value="Hamburgesas">Hamburgesas</option>
+                    <option value="Pizzas">Pizzas</option>
+                    <option value="Desayunos">Desayunos</option>
+                    <option value="Mariscos">Mariscos</option>
+                    <option value="Tacos">Tacos</option>
+                   </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="product"><b>Imagen</b></label>
+              <input type="file" alife-file-to-base64 (onFileChanged)="loadPhoto($event)" class="form-control" placeholder="imagen">
+
+              <img src="{{auxImg}}" class="img-fluid mt-2" *ngIf="img == null" alt="" width="350" height="250">
+              <img src="{{img}}" class="img-fluid mt-2" *ngIf="img != null" alt="" width="350" height="250">
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-success" *ngIf="ok" role="alert">
+          Se agrego el producto exitosamente!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="PostProduct()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal editar-->
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar plato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="product"><b>Nombre del producto</b></label>
+              <input type="text" class="form-control" placeholder="Nombre del plato" [(ngModel)]="name">
+            </div>
+            <div class="form-group">
+              <label for="product"><b>Descripcion del producto</b></label>
+              <textarea name="desc" id="" [(ngModel)]="resume" class="form-control" cols="10" rows="3" placeholder="Descripcion"></textarea>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="product"><b>precio del producto</b></label>
+                  <input type="number" [(ngModel)]="price" class="form-control" placeholder="precio del plato">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="product"><b>Categoria</b></label>
+                  <select class="form-control" [(ngModel)]="type">
+                    <option value="" selected disabled>Seleccione</option>
+                    <option value="Frituras">Frituras</option>
+                    <option value="Pastas">Pastas</option>
+                    <option value="Hamburgesas">Hamburgesas</option>
+                    <option value="Fizzas">Pizzas</option>
+                    <option value="Desayunos">Desayunos</option>
+                    <option value="Mariscos">Mariscos</option>
+                    <option value="Tacos">Tacos</option>
+                   </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="product"><b>Imagen</b></label>
+              <input type="file" alife-file-to-base64 (onFileChanged)="loadPhoto($event)" class="form-control" placeholder="imagen">
+              <img src="{{auxImg}}" class="img-fluid mt-2" *ngIf="img == null" alt="" width="350" height="250">
+              <img src="{{img}}" class="img-fluid mt-2" *ngIf="img != null" alt="" width="250" height="150">
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-warning" *ngIf="ok" role="alert">
+          Se edito el producto exitosamente!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="clear()">Cerrar</button>
+        <button type="button" class="btn btn-warning" (click)="PutProduct()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal eliminar-->
+<div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar plato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <h3>Esta seguro que desea eliminar {{name}}?</h3>
+        <div class="alert alert-danger" *ngIf="ok" role="alert">
+          Se elimino el producto exitosamente!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="clear()">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="DeleteProduct()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

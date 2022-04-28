@@ -1,0 +1,25 @@
+<div class="container pt-3">
+  <div class="card mt-3">
+    <div class="card-header">
+      <h2>Quejas / Contacto de los clientes</h2>
+    </div>
+    <div class="card-body">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre del Emisor</th>
+            <th scope="col">Correo electronico</th>
+            <th scope="col">Mensaje del cliente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let q of complaints">
+            <td>{{q.nombreEmisor}}</td>
+            <td>{{q.correo}}</td>
+            <td>{{q.queja1}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

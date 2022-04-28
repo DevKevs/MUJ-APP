@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="border-0 bg-light">
+          <div class="p-2 px-3 text-uppercase">Detalle de orden</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Precio</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">SubTotal</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Cantidad</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Estado</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of result">
+        <th scope="row" class="border-0">
+          <div class="p-2">
+            <img src="{{o.foto}}" alt="" width="70" class="img-fluid rounded shadow-sm">
+            <div class="ml-3 d-inline-block align-middle">
+              <h5 class="mb-0"> <a class="text-dark d-inline-block align-middle">{{o.nombreProducto}}</a></h5><span class="text-muted font-weight-normal font-italic d-block">Comentario: {{o.comentario}}</span>
+            </div>
+          </div>
+        </th>
+        <td class="border-0 align-middle"><strong>$RD {{o.precio}}.00</strong></td>
+        <td class="border-0 align-middle"><strong>$RD {{o.precio * o.cantidad}}.00</strong></td>
+        <td class="border-0 align-middle"><strong>{{o.cantidad}}</strong></td>
+        <td class="border-0 align-middle">
+          <span class="badge badge-success" *ngIf="o.estado == 'Entregado'" style="font-size: 15px; border-radius: 13px;">Entregado</span>
+          <span class="badge badge-danger" *ngIf="o.estado == 'En espera'" style="font-size: 15px; border-radius: 13px;">En espera</span>
+          <span class="badge badge-warning" *ngIf="o.estado == 'En preparacion'" style="font-size: 15px; border-radius: 13px;">En preparacion</span>
+          <span class="badge badge-info" *ngIf="o.estado == 'Enviado'" style="font-size: 15px; border-radius: 13px;">Enviado</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

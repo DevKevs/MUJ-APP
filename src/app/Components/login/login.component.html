@@ -1,0 +1,36 @@
+<div style="background: linear-gradient(0deg, rgba(107, 151, 222, 0.85) 20%, rgba(106, 112, 228, 0.65) 50%), url(https://static.pexels.com/photos/21261/pexels-photo.jpg) no-repeat center; background-size: cover;">
+  <div class="container" >
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card my-5">
+
+          <div class="card-body cardbody-color p-lg-5">
+            <div style="text-align: center;">
+              <h3>MUJ DELICIUS INICIAR SESION</h3>
+            </div>
+            <div class="text-center">
+              <img src="https://i.pinimg.com/736x/a5/68/f9/a568f978bb84a742425fc9dfd209c62d.jpg" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                width="200px" alt="profile">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
+                placeholder="Nombre de usuario" [(ngModel)]="username">
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" id="password" placeholder="contraseña" [(ngModel)]="passw">
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" (click)="authenticate()">Iniciar sesion</button></div>
+
+            <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
+              Registered? <a class="text-dark fw-bold"> Create an
+                Account</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

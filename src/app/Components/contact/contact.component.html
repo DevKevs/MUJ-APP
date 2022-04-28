@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card mt-3 mb-3">
+      <div class="card-header">
+        <h1 style="text-align: center;">Contactanos</h1>
+      </div>
+      <div class="card-body">
+              <div>
+                <div class="form-group">
+                  <label for=""><b>Nombre completo</b></label>
+                  <input type="text" class="form-control" placeholder="Nombre completo" [(ngModel)]="issuerName">
+                </div>
+                <div class="form-group">
+                  <label for=""><b>Correo</b></label>
+                  <input type="text" class="form-control" placeholder="Correo" [(ngModel)]="mail">
+                </div>
+                <div class="form-group">
+                  <label for=""><b>Mensaje</b></label>
+                  <textarea name="" id="" cols="30" rows="3" placeholder="Mensaje" class="form-control" [(ngModel)]="message"></textarea>
+                </div>
+                <button class="btn btn-dark btn-lg btn-block" style="border-radius: 30px;" (click)="postIssue()">Contactanos</button>
+              </div>
+      </div>
+  </div>
+</div>
